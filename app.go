@@ -14,19 +14,9 @@ func (app *Application) Stop() {
 	app.isReady = false
 }
 
-func (app *Application) Hello() int {
-	if app.isReady == true {
-		return http.StatusOK
+func (app *Application) Status() (int, string) {
+	if app.isReady {
+		return http.StatusOK, "up"
 	}
-	return http.StatusServiceUnavailable
-}
-
-func (app *Application) Status() string {
-	var status string
-	if app.isReady == true {
-		status = "up"
-	} else {
-		status = "down"
-	}
-	return status
+	return http.StatusServiceUnavailable, "down"
 }

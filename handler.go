@@ -11,14 +11,7 @@ type Response struct {
 }
 
 func HelloHandler(ctx echo.Context) error {
-	status := app.Hello()
-	var statusStr string
-	switch status {
-	case 200:
-		statusStr = "up"
-	default:
-		statusStr = "down"
-	}
+	status, statusStr := app.Status()
 
 	r := &Response{
 		Status: statusStr,
