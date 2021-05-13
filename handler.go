@@ -10,7 +10,7 @@ type Response struct {
 	Status string `json:"status"`
 }
 
-func HelloHandler(ctx echo.Context) error {
+func StatusHandler(ctx echo.Context) error {
 	status, statusStr := app.Status()
 
 	r := &Response{
