@@ -12,7 +12,7 @@ type Response struct {
 
 func StatusHandler(ctx echo.Context) error {
 	status, statusMsg := app.Status()
-	if status != 200 {
+	if status != http.StatusOK {
 		return echo.NewHTTPError(status, statusMsg)
 	}
 	r := &Response{
