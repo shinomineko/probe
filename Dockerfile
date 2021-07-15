@@ -9,7 +9,7 @@ RUN go mod init probe \
 	&& go mod tidy \
 	&& CGO_ENABLED=0 go build -o /go/bin/probe
 
-FROM gcr.io/distroless/base-debian10
+FROM gcr.io/distroless/static-debian10
 
 COPY --from=build /go/bin/probe /probe
 
