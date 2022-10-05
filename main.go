@@ -13,7 +13,7 @@ func main() {
 	e := echo.New()
 	e.Use(middleware.Logger())
 	e.GET("/status", StatusHandler)
-	e.GET("/start", StartHandler)
-	e.GET("/stop", StopHandler)
+	e.POST("/start", StartHandler)
+	e.POST("/stop", StopHandler)
 	e.Logger.Fatal(e.Start(":8080"))
 }
