@@ -1,17 +1,16 @@
-FROM golang:1.18-alpine as build
+FROM cgr.dev/chainguard/go:latest as build
 
-WORKDIR /go/src/probe
+WORKDIR /work
 
-COPY ./*.go /go/src/probe
+COPY go.mod go.sum ./
+RUN go mod download
 
-RUN go mod init probe \
-	&& go get -u github.com/labstack/echo/v4 \
-	&& go mod tidy \
-	&& CGO_ENABLED=0 go build -o /go/bin/probe
+COPY . .
+RUN CGO_ENABLED=0 GOOS=linux go build -o /work/probe
 
-FROM gcr.io/distroless/static-debian11
+FROM cgr.dev/chainguard/static:latest
 
-COPY --from=build /go/bin/probe /probe
+COPY --from=build /work/probe /probe
 
 EXPOSE 8080
 
